@@ -7,7 +7,11 @@ $(document).ready(()=> {
     chat.addMessage(message);
   });
   socket.on('namechange', (result) => {
-    if (result.success) chat.changeName(result.name);
+    if (result.success) {
+      chat.changeName(result.name);
+    } else {
+      chat.systemMessage(result.reason);
+    }
   })
 
 });
