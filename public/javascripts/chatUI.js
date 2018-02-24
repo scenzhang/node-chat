@@ -7,18 +7,36 @@ class ChatUI {
     this.messages = $("#messages");
     this.input = $("#chat-field");
     this.addSubmitHandler();
-
+    this.name = "";
+  }
+  changeName(name) {
+    this.systemMessage(`You are now known as ${name}`);
+    this.name = name;
   }
   sendMessage() {
     this.chat.sendMessage(this.getInput());
   }
-  processInput() {
-    this.sendMessage();
-    this.addMessage(this.getInput());
-  }
 
+  processInput() {
+    const input = this.getInput();
+    if (input[0] === '/') {
+      let response = this.chat.processCommand(input);
+      if (response) {
+        this.systemMessage(response);
+      }
+    } else {
+      this.sendMessage();
+      this.addMessage({
+        user: this.name,
+        text: input
+      });
+    }
+  }
+  systemMessage(message) {
+    this.addMessage({ user: "System", text: message});
+  }
   addMessage(message) {
-    let newMsg = $(`<li>${message}</li>`);
+    let newMsg = $(`<li>${new Date()} ${message.user}: ${message.text}</li>`);
     this.messages.append(newMsg);
   }
 

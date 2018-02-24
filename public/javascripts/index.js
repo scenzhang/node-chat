@@ -4,7 +4,10 @@ $(document).ready(()=> {
   const chat = new chatUI(socket);
   socket.on('message', (message) => {
     console.log('received message');
-    chat.addMessage(message.text);
+    chat.addMessage(message);
+  });
+  socket.on('namechange', (result) => {
+    if (result.success) chat.changeName(result.name);
   })
 
 });
