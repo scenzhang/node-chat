@@ -3,11 +3,18 @@ class Chat {
     this.socket = socket;
   }
 
-  sendMessage(msg) {
+  sendMessage(msg, room) {
     console.log('send message');
     this.socket.emit('message', {
-      text: msg
+      text: msg,
+      room
     });
+  }
+  changeName(name) {
+    this.socket.emit('nickChange', name);
+  }
+  changeRoom(room) {
+    this.socket.emit('join', { newRoom: room});
   }
 
   processCommand(input) {
@@ -18,7 +25,12 @@ class Chat {
       case 'nick':
         words.shift();
         const newName = words.join(" ");
-        this.socket.emit('nickChange', newName);
+        this.changeName(newName);
+        break;
+      case 'join':
+        words.shift();
+        const newRoom = words.join(" ");
+        this.changeRoom(newRoom);
         break;
       default:
         msg = 'Unrecognized command'

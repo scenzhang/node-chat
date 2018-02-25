@@ -12,6 +12,17 @@ $(document).ready(()=> {
     } else {
       chat.systemMessage(result.reason);
     }
+  });
+  socket.on('roomchange', (room) => {
+    chat.systemMessage(`Joined ${room.room}`);
+    chat.changeRoom(room.room);
+  });
+  socket.on('userJoined', (uj) =>{
+    console.log(`${uj.user} has joined.`);
+    chat.systemMessage(`${uj.user} has joined.`);
+  });
+  socket.on('part', (part) => {
+    chat.systemMessage(`${part.user} has left.`);
   })
 
 });

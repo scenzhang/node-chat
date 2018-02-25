@@ -8,6 +8,8 @@ class ChatUI {
     this.input = $("#chat-field");
     this.addSubmitHandler();
     this.name = "";
+    this.room = $("#room");
+    this.users = $("#room-users");
   }
   changeName(name) {
     this.systemMessage(`You are now known as ${name}`);
@@ -39,7 +41,9 @@ class ChatUI {
     let newMsg = $(`<li>${new Date()} ${message.user}: ${message.text}</li>`);
     this.messages.append(newMsg);
   }
-
+  changeRoom(room) {
+    this.room.html(room);
+  }
   getInput() {
     return this.input.val();
   }
