@@ -23,6 +23,10 @@ $(document).ready(()=> {
   });
   socket.on('part', (part) => {
     chat.systemMessage(`${part.user} has left.`);
+  });
+  socket.on('userlist', (userlist) => {
+    console.log(userlist);
+    chat.updateUserList(userlist);
   })
 
 });

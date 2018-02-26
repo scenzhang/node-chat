@@ -56,6 +56,12 @@ class ChatUI {
       this.input.focus();
     });
   }
+  updateUserList(userlist) {
+    this.users.empty();
+    userlist.forEach(user => {
+      this.users.append($(`<li>${user}</li>`));
+    });
+  }
 }
 
 module.exports = ChatUI
