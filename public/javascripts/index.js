@@ -27,6 +27,10 @@ $(document).ready(()=> {
   socket.on('userlist', (userlist) => {
     console.log(userlist);
     chat.updateUserList(userlist);
-  })
+  });
+  socket.on('whisper', (whisper) => {
+    console.log(whisper);
+    chat.addMessage(whisper, true);
+  });
 
 });

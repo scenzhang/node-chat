@@ -37,8 +37,13 @@ class ChatUI {
   systemMessage(message) {
     this.addMessage({ user: "System", text: message});
   }
-  addMessage(message) {
-    let newMsg = $(`<li>${new Date()} ${message.user}: ${message.text}</li>`);
+
+  addMessage(message, whisper=false) {
+    let msgClass = "";
+    if (whisper) {
+      msgClass = "whisper";
+    }
+    let newMsg = $(`<li class=${msgClass}>${new Date()} ${message.user}: ${message.text}</li>`);
     this.messages.append(newMsg);
   }
   changeRoom(room) {
@@ -59,7 +64,7 @@ class ChatUI {
   updateUserList(userlist) {
     this.users.empty();
     userlist.forEach(user => {
-      this.users.append($(`<li>${user}</li>`));
+    this.users.append($(`<li>${user}</li>`));
     });
   }
 }
